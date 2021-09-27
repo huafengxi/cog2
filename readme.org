@@ -8,6 +8,7 @@ mimic: https://www.python.org/about/success/cog/
 : clean=1 ./cog.py file1 file2... # remove generated code
 
 * examples
+see =example/a.c=
 ** single line expression
 : //cog 'hello, world!'
 : //end
@@ -22,11 +23,13 @@ for i in range(10):
 #+end_src
 
 ** as template engine
+see =example/tmp.py= (file name must end with '.py' in order to treat as template)
 #+begin_src python
 for i in range(10):
    $i
 o>>'a.txt' # write output to file
 #end_src
+tmp.py is executed by python Interpreter, invalid python line will be append to output stream after interpolated.
 
 * extension
 ** c namespace

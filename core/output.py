@@ -64,6 +64,8 @@ class Output(list):
         line = sub(text, env, globals=self.g_env)
         self.append(add_newline(line))
         return self
+    def __lshift__(self, text):
+        return self.out(text)
     def __rshift__(self, path):
         def safe_read(p):
             try:
