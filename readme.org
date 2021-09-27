@@ -9,9 +9,6 @@ mimic: https://www.python.org/about/success/cog/
 
 * examples
 see =example/a.c=
-** single line expression
-: //cog 'hello, world!'
-: //end
 ** multiline code block
 #+begin_src python
 //cog
@@ -46,14 +43,14 @@ tmp.py is executed by python Interpreter, invalid python line will be append to 
 struct A_xxx {} // define A_xxx traits
 //cog use_tpl('A', 'a.h')
 //end
-#end_src
+#+end_src
 =a.h= define function,struct,variable prefixed with =my_=, can not define macro.
 
 ** unprefix
 #+begin_src cpp
 # place this line to a.py, call `cog.py a.py`
 unpreifx('prefix_', filelist)
-#end_src
+#+end_src
 
 ** assemble section
 #+begin_example
@@ -62,6 +59,6 @@ SECTIONS {
 /* //end */
 }
 INSERT BEFORE .bss;
-#end_example
+#+end_example
 link flags
 : ldflags += -Wl,-T$(lds-file)
