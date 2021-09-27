@@ -1,6 +1,7 @@
 //cog print 'xxx' //end
 
 //cog 'hello, world!'
+hello, world!
 //end
 
 //cog

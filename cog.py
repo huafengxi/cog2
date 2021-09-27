@@ -60,6 +60,7 @@ def cog_render(code):
     else:
         ret = ex.eval_expr(code.strip(), globals())
         if ret == None: return o.fetch()
+        return ret
 
 def cog_transform(text):
     def add_newline(s):
@@ -105,7 +106,7 @@ def do_handle_file(file_name):
         logging.info('load whole file: %s', p)
         ex.exec_code(text, globals())
     elif begin_mark in text and end_mark in text:
-        logging.info('load inline cog file: %s', p)
+        logging.info('load inline cog: %s', p)
         new_text = re.sub('^([^\n]*{})(.+?)((?: *|^[^\n]*){})'.format(begin_mark, end_mark), lambda m: '{}{}{}'.format(m.group(1), cog_transform(m.group(2)),m.group(3)), text, flags=re.S|re.M)
         update_file(p, text, new_text)
     else:
