@@ -1,0 +1,64 @@
+#+Title: code generation tool
+
+
+mimic: https://www.python.org/about/success/cog/
+
+* usages
+: mark=// ./cog.py file1 file2... # update generated code
+: clean=1 ./cog.py file1 file2... # remove generated code
+
+* examples
+** single line expression
+: //cog 'hello, world!'
+: //end
+** multiline code block
+#+begin_src python
+//cog
+o<<'### header ###'
+for i in range(10):
+    a[$i] = $i * $i;
+//output
+//end
+#+end_src
+
+** as template engine
+#+begin_src python
+for i in range(10):
+   $i
+o>>'a.txt' # write output to file
+#end_src
+
+* extension
+** c namespace
+#+begin_src cpp
+// place this line to one file which include all files
+//cog gen_ns('prefix', 'ns.h') //end
+#include "ns.h"
+...
+#include "ns.h"
+#+end_src
+
+** C template
+#+begin_src cpp
+struct A_xxx {} // define A_xxx traits
+//cog use_tpl('A', 'a.h')
+//end
+#end_src
+=a.h= define function,struct,variable prefixed with =my_=, can not define macro.
+
+** unprefix
+#+begin_src cpp
+# place this line to a.py, call `cog.py a.py`
+unpreifx('prefix_', filelist)
+#end_src
+
+** assemble section
+#+begin_example
+SECTIONS {
+/* //cog gen_assemble_section(popen('b/src-list.sh')) */
+/* //end */
+}
+INSERT BEFORE .bss;
+#end_example
+link flags
+: ldflags += -Wl,-T$(lds-file)
